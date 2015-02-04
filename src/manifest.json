@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Get Git",
-    "version": "0.0.0.4",
+    "version": "0.0.0.5",
     "description": "Find misconfigured, web accessible .git directories on websites you browse.",
     "author": "Jack Kingsman <jack.kingsman@gmail.com>",
     "background": {
