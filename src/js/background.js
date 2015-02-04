@@ -15,7 +15,23 @@ chrome.storage.sync.get(null, function (data) {
         chrome.storage.sync.set({
             "config":   config,
             "sites":    sites,
-            "ggStatus": 1
+			"seenSites":0,
+            "ggStatus": 1,
         });
     }
 });
+
+setInterval(function (){
+	var newCount;
+	chrome.storage.sync.get(null, function (data) {
+		//compare the number of sites we saw last time we checked vs now. if greater; show a badge.
+		newCount = data.sites.length - data.seenSites;
+		if(newCount > 0){
+			chrome.browserAction.setBadgeText({text: newCount.toString()});
+		}
+		else{
+			chrome.browserAction.setBadgeText({text: ""});
+		}
+	});
+}, 2000);
+
