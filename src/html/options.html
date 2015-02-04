@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<title>Get Git Configuration</title>
+        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"></link>
+    </head>
+    <body>
+		<div class="container">
+			<h2><img src="../img/cloudgit38.png"> Get Git</h2>
+			<div id="notifications"></div>
+			<hr />
+			<div class="row">
+				<div class="col-md-12">
+				<h3><i class="glyphicon glyphicon-th-list"></i> Vulnerable Sites</h3>
+				<a href="#" id="clearSites">Clear Vulnerable Sites</a> | <a href="#" id="exportSites">Export Vulnerable Sites</a>
+					<div style="height: 200px; overflow: auto;">
+					<table class="table table-striped" id="siteTable">
+					  <thead>
+						<tr>
+						  <th>Location</th>
+						  <th>.git/ publically accessible?</th>
+						</tr>
+					  </thead>
+					  <tbody id="siteTableBody">
+					  </tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-md-7">
+					<h3><i class="glyphicon glyphicon-cog"></i> Configuration</h3>
+					<form id="getGitConfig" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Enabled</label>
+							<div class="col-sm-10">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="enabled"> If unchecked, Get Git won't send any requests or test pages
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Recursive</label>
+							<div class="col-sm-10">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="recursive"> If checked, Get Git will recurse to all parent directories (i.e if you're at example.com/dir/subdir, it will check /dir/subdir/, /dir/, and / for git files.). If unchecked, Get Git will only check the current url (i.e. if you're at example.com/dir/subdir, if will only check subdir for git files). Recursive will yield the most results, but also fires off the most XHR requests.
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Dings</label>
+							<div class="col-sm-10">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="dingFound"> Ding when a repo is found (<a href="#" id="demoDing">Play Ding</a>)
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Alerts</label>
+							<div class="col-sm-10">
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" id="alertFound"> Show alert when a repo is found (<a href="#" id="demoAlert">Show Alert</a>)
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<input type="submit" class="btn btn-success" value="Save Settings"></input>
+							</div>
+						</div>
+					</form>
+
+				</div>
+				<div class="col-md-5">
+					<h3><i class="glyphicon glyphicon-pencil"></i> Notes</h3>
+						<p>
+							This tool checks for the following: 
+							
+							<ul>
+								<li>an HTTP 200 response to a request for <code>.git/HEAD</code></li>
+								<li>the presence of the string "ref: " in that response</li>
+								<li>an HTTP 200 response to a request for <code>.git/config</code></li>
+								<li>the presence of the string "[core]" in that response</li>
+							</ul>
+						
+							This mixture of checks overcomes issues such as the <code>.git</code> directory returning 403
+							because indexes aren't enabled and sites that will respond with a 200 no matter whether the page exists
+							or not.
+						</p>
+
+						<p>
+							If the <code>.git</code> directory allows for listing, clone it with <code>wget --mirror --no-parent &lt;target&gt;/.git && git reset --hard</code>.
+						</p>
+						
+						<p>
+							Not all .git directorys will list their directory contents, though (see	<a href="http://www.slideshare.net/kost/ripping-web-accessible-git-files">this</a> slideshow, to which I am heavily indebted for inspiration). In this case, you'll want to use <a href="https://github.com/kost/dvcs-ripper">dvcs-ripper</a>, a handy perl script to yank down Git/SVN/CVS repos without directory listings.<br />
+						</p>
+				</div>
+			</div>
+			<hr />
+			<p class="text-center text-muted">MIT Licensed | <a href="https://github.com/jkingsman/get-git">Fork this on GitHub</a></p>
+		</div>
+		
+		<div class="modal fade" id="exportDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="exportDataLabel">Export Vulnerable Sites</h4>
+					</div>
+					<div class="modal-body">
+						<textarea id="exportBox" style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: order-box; width: 100%;"></textarea>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/options.js"></script>
+    </body>
+</html>
