@@ -3,7 +3,7 @@ Get Git
 
 Get Git is a Chrome extension that lets you know when you're on a site with a misconfigured, web accessible Git repo.
 
-[![Image of Chrome Store Badge](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_340x96.png)](URL goes here)
+[![Image of Chrome Store Badge](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_340x96.png)](https://chrome.google.com/webstore/detail/agddmammmnpdglmincfngjfnehmopoln)
 
 What It Is
 =============
