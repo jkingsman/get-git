@@ -111,7 +111,7 @@ function addSite(url, webAccessible) {
 		if(config.alertFound){
 			//the timeout is here due to some weird issue where, without a timeout, alert dismissal is required before the audio plays
 			//I'm guessing it's some issue with async processes getting blocked but who knows. this seems to fix it.
-			setTimeout(function(){alert("Get Git found a Git repo at " + url)}, 100);
+			setTimeout(function(){alert("Get Git found a Git repo at " + url)}, 500);
 		}
     });
 }
