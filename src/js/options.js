@@ -12,6 +12,9 @@ function buildPage() {
     var config, sites, enabled;
 
     chrome.storage.sync.get(null, function (data) {
+		chrome.storage.sync.set({
+			'seenSites': data.sites.length
+		});
         config = data.config;
         sites = data.sites;
         enabled = data.ggStatus;
