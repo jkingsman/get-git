@@ -1,23 +1,30 @@
 //just to make sure we're all initialized on first run
 chrome.storage.sync.get(null, function (data) {
-    if (typeof data.config === "undefined" || typeof data.sites === "undefined" || typeof data.ggStatus === "undefined") {
+    if (typeof data.config === "undefined" || typeof data.sites === "undefined" || typeof data.status === "undefined" || typeof data.config.alertCSSFound === "undefined") {
         //default config
         config = {
             recursive:  true,
             soundFound:  true,
             alertFound: false,
+			alertCSSFound: true,
         };
 
         //default site list (empty)
         sites = [];
 
-        //store the defaults
-        chrome.storage.sync.set({
-            "config":   config,
-            "sites":    sites,
-			"seenSites":0,
-            "ggStatus": 1,
-        });
+		//onle create a new sites if we don't have it yet; don't want to overwrite people's on update
+		if(typeof data.sites === "undefined"){
+			chrome.storage.sync.set({
+				"sites":     sites,
+			});
+		}
+		
+		//store the defaults
+		chrome.storage.sync.set({
+			"config":    config,
+			"seenSites": 0,
+			"status":    1,
+		});
     }
 });
 
