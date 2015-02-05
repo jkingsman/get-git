@@ -1,6 +1,6 @@
 //the meat of the content script
 chrome.storage.sync.get(null, function (data) {
-    if (data.ggStatus) {
+    if (data.status) {
         //the extension is enabled
         var currentScanUrl = stripTrailingSlash(window.location.href);
         if (data.config.recursive) {
@@ -86,6 +86,18 @@ function addSite(url, webAccessible, gitIgnore, commitMsg, gitConfig, gitDescrip
 			//the timeout is here due to some weird issue where, without a timeout, alert dismissal is required before the audio plays
 			//I'm guessing it's some issue with async processes getting blocked but who knows. this seems to fix it.
 			setTimeout(function(){alert("Get Git found a Git repo at " + url)}, 500);
+		}		
+		
+		if(config.alertCSSFound){
+			//install our CSS
+			var style = document.createElement('link');
+			style.rel = 'stylesheet';
+			style.type = 'text/css';
+			style.href = chrome.extension.getURL('css/alert.css');
+		    (document.head||document.documentElement).appendChild(style);
+			
+			//insert the alert itself
+			document.body.insertAdjacentHTML('afterBegin', '<div id="note">This website has a web accessible .git directory! (Refresh page to dismiss)</div>');
 		}
     });
 }
