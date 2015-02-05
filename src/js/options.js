@@ -23,7 +23,7 @@ function buildPage() {
         //set our checkboxes to what's in storage
         $("#enabled").prop("checked", enabled);
         $("#recursive").prop("checked", config.recursive);
-        $("#dingFound").prop("checked", config.dingFound);
+        $("#soundFound").prop("checked", config.soundFound);
         $("#alertFound").prop("checked", config.alertFound);
 
         //be loud if it's disabled
@@ -51,8 +51,8 @@ function buildPage() {
             }
 
             //append the URL to the table
-            $('#siteTableBody').append('<tr><td>' + site.url + '</td>' + webAccessibleTD + '</tr>');
-        }
+            $('#siteTableBody').append('<tr><td><strong>' + site.url + '</strong></td><td>' + site.gitDescription + '</td>' + webAccessibleTD + '<td class="text-center"><a href="#" id="showDetails' + site.uid + '"><i class="glyphicon glyphicon-wrench"></i></a></td></tr>');
+        }		
     });
 }
 
@@ -87,7 +87,7 @@ $("#getGitConfig").submit(function (e) {
     //build out an array of config options
     var config = {
         recursive: $("#recursive").prop("checked"),
-        dingFound: $("#dingFound").prop("checked"),
+        soundFound: $("#soundFound").prop("checked"),
         alertFound: $("#alertFound").prop("checked"),
     };
 
@@ -99,18 +99,6 @@ $("#getGitConfig").submit(function (e) {
 
     //notify
     showNotification("alert-success", "Configuration updated.", 3);
-});
-
-
-//play the ding for the user
-$("#demoDing").click(function () {
-    var audio = new Audio('../audio/alert.mp3');
-    audio.play();
-});
-
-//show what the alert looks like
-$("#demoAlert").click(function () {
-    alert("This site has a publically accessible Git repo.");
 });
 
 //erase sites from the table and from storage
@@ -133,6 +121,44 @@ $("#exportSites").click(function () {
 		$("#exportBox").val(JSON.stringify(sites));
 		$('#exportDataModal').modal('show') 
 	});
+});
+
+//play the ding for the user
+$("#demoSound").click(function () {
+    var audio = new Audio('../audio/alert.mp3');
+    audio.play();
+});
+
+//show what the alert looks like
+$("#demoAlert").click(function () {
+    alert("This site has a publically accessible Git repo.");
+});
+
+//hook the Show More link
+$(document.body).on("click", "[id^=showDetails]", function(){
+	//extract the UID from the element ID
+	var id = this.id.replace(/showDetails/g,'')
+	
+	chrome.storage.sync.get(null, function (data) {
+        sites = data.sites;
+		//loop through the ID's and find our ID
+		for (var i = 0; i < sites.length; i++) {
+            var site = sites[i];
+			if(site.uid == id){
+				//fill the fields
+				$("#detailsURL").val(site.url);
+				$("#detailsWeb").val(site.webAccessible);
+				$("#detailsDescription").val(site.gitDescription);
+				$("#detailsMsg").val(site.commitMsg);
+				$("#detailsConfig").val(site.gitConfig);
+				$("#detailsIgnore").val(site.gitIgnore);
+				$("#detailsExclude").val(site.gitExclude);
+			}
+        }
+	});
+	
+	//expose modal
+	$('#detailsModal').modal('show') 
 });
 
 //bind events to dom elements

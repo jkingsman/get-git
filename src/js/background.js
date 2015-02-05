@@ -4,8 +4,8 @@ chrome.storage.sync.get(null, function (data) {
         //default config
         config = {
             recursive:  true,
-            dingFound:  true,
-            alertFound: true,
+            soundFound:  true,
+            alertFound: false,
         };
 
         //default site list (empty)
