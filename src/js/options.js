@@ -17,7 +17,7 @@ function buildPage() {
 		});
         config = data.config;
         sites = data.sites;
-        enabled = data.ggStatus;
+        enabled = data.status;
 
 
         //set our checkboxes to what's in storage
@@ -25,6 +25,7 @@ function buildPage() {
         $("#recursive").prop("checked", config.recursive);
         $("#soundFound").prop("checked", config.soundFound);
         $("#alertFound").prop("checked", config.alertFound);
+		$("#alertCSSFound").prop("checked", config.alertCSSFound);
 
         //be loud if it's disabled
         if (!enabled) {
@@ -89,12 +90,13 @@ $("#getGitConfig").submit(function (e) {
         recursive: $("#recursive").prop("checked"),
         soundFound: $("#soundFound").prop("checked"),
         alertFound: $("#alertFound").prop("checked"),
+		alertCSSFound: $("#alertCSSFound").prop("checked"),
     };
 
     //store config
     chrome.storage.sync.set({
         'config': config,
-        'ggStatus': $("#enabled").prop("checked")
+        'status': $("#enabled").prop("checked")
     });
 
     //notify
@@ -132,6 +134,11 @@ $("#demoSound").click(function () {
 //show what the alert looks like
 $("#demoAlert").click(function () {
     alert("This site has a publically accessible Git repo.");
+});
+
+//show what the CSS alert looks like
+$("#demoCSSAlert").click(function () {
+    $('body').prepend('<div id="note">This website has a web accessible .git directory! (Refresh page to dismiss)</div>');
 });
 
 //hook the Show More link

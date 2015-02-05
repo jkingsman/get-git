@@ -7,32 +7,32 @@ var syncRules;
 
 function init_main() {
     //get the current enabled state and rule list
-    chrome.storage.sync.get('ggStatus', function (data) {
-        if (typeof data.ggStatus === "undefined") {
+    chrome.storage.sync.get('status', function (data) {
+        if (typeof data.status === "undefined") {
             //this is first use; enable by default and save
             chrome.storage.sync.set({
-                "ggStatus": 1
+                "status": 1
             });
             var isEnabled = 1;
         }
         else {
-            var isEnabled = parseInt(data.ggStatus);
+            var isEnabled = parseInt(data.status);
         }
 
         //make the switch reflect our current state
         if (isEnabled) {
-            $('#ggStatus').bootstrapSwitch('state', true);
+            $('#status').bootstrapSwitch('state', true);
         }
         else {
-            $('#ggStatus').bootstrapSwitch('state', false);
+            $('#status').bootstrapSwitch('state', false);
         }
     });
 
     //init our switch
-    $('#ggStatus').bootstrapSwitch();
+    $('#status').bootstrapSwitch();
 
     //build options link
-    $("#ggOptLink").attr("href", chrome.extension.getURL("html/options.html"));
+    $("#optLink").attr("href", chrome.extension.getURL("html/options.html"));
 
     //show the menu
     $('html').hide().fadeIn('slow');
@@ -42,15 +42,15 @@ function init_main() {
 document.addEventListener('DOMContentLoaded', init_main);
 
 //handle enabling or disabling or the extension
-$('#ggStatus').on('switchChange.bootstrapSwitch', function (event, state) {
+$('#status').on('switchChange.bootstrapSwitch', function (event, state) {
     if (state) {
         chrome.storage.sync.set({
-            "ggStatus": 1
+            "status": 1
         });
     }
     else {
         chrome.storage.sync.set({
-            "ggStatus": 0
+            "status": 0
         });
     }
 });
