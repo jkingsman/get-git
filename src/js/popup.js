@@ -21,15 +21,12 @@ function init_main() {
 
         //make the switch reflect our current state
         if (isEnabled) {
-            $('#status').bootstrapSwitch('state', true);
+            $('#status').prop("checked", true)
         }
         else {
-            $('#status').bootstrapSwitch('state', false);
+            $('#status').prop("checked", false)
         }
     });
-
-    //init our switch
-    $('#status').bootstrapSwitch();
 
     //build options link
     $("#optLink").attr("href", chrome.extension.getURL("html/options.html"));
@@ -42,8 +39,8 @@ function init_main() {
 document.addEventListener('DOMContentLoaded', init_main);
 
 //handle enabling or disabling or the extension
-$('#status').on('switchChange.bootstrapSwitch', function (event, state) {
-    if (state) {
+$('#status').change(function () {
+    if ($("#status").prop("checked")) {
         chrome.storage.sync.set({
             "status": 1
         });
