@@ -1,18 +1,22 @@
 //the meat of the content script
 chrome.storage.sync.get(null, function (data) {
     if (data.status) {
-        //the extension is enabled
-        var currentScanUrl = stripTrailingSlash(window.location.href);
-        if (data.config.recursive) {
-            //keep processing URLs, including the current one and all parents, until we can't anymore
-            while (currentScanUrl != -1) {
-                checkForGit(currentScanUrl);
-                currentScanUrl = nextParent(currentScanUrl);
-            }
-        } else {
-            //not recursing; just test the current location
-            checkForGit(currentScanUrl);
-        }
+	if (data.config.xhrDelay) {
+	    setTimeout(function(){
+		//the extension is enabled
+		var currentScanUrl = stripTrailingSlash(window.location.href);
+		if (data.config.recursive) {
+		    //keep processing URLs, including the current one and all parents, until we can't anymore
+		    while (currentScanUrl != -1) {
+			checkForGit(currentScanUrl);
+			currentScanUrl = nextParent(currentScanUrl);
+		    }
+		} else {
+		    //not recursing; just test the current location
+		    checkForGit(currentScanUrl);
+		}
+	    }, 5000);
+	}
     }
 });
 
