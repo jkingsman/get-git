@@ -1,12 +1,13 @@
 //just to make sure we're all initialized on first run
 chrome.storage.sync.get(null, function (data) {
-    if (typeof data.config === "undefined" || typeof data.sites === "undefined" || typeof data.status === "undefined" || typeof data.config.alertCSSFound === "undefined") {
+    if (typeof data.config === "undefined" || typeof data.sites === "undefined" || typeof data.config.delay === "undefined" || typeof data.config.alertCSSFound === "undefined") {
         //default config
         config = {
-            recursive:  true,
-            soundFound:  true,
-            alertFound: false,
-			alertCSSFound: true,
+            recursive:     true,
+	    xhrDelay:      true,
+            soundFound:    true,
+            alertFound:    false,
+	    alertCSSFound: true,
         };
 
         //default site list (empty)

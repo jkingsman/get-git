@@ -25,7 +25,8 @@ function buildPage() {
         $("#recursive").prop("checked", config.recursive);
         $("#soundFound").prop("checked", config.soundFound);
         $("#alertFound").prop("checked", config.alertFound);
-		$("#alertCSSFound").prop("checked", config.alertCSSFound);
+	$("#alertCSSFound").prop("checked", config.alertCSSFound);
+	$("#xhrDelay").prop("checked", config.xhrDelay);
 
         //be loud if it's disabled
         if (!enabled) {
@@ -90,7 +91,8 @@ $("#getGitConfig").submit(function (e) {
         recursive: $("#recursive").prop("checked"),
         soundFound: $("#soundFound").prop("checked"),
         alertFound: $("#alertFound").prop("checked"),
-		alertCSSFound: $("#alertCSSFound").prop("checked"),
+	alertCSSFound: $("#alertCSSFound").prop("checked"),
+	xhrDelay: $("#xhrDelay").prop("checked"),
     };
 
     //store config
