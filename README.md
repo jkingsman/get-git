@@ -27,3 +27,7 @@ For an URL to be entered as a repo, it must meet all of the following criteria:
 License
 =============
 MIT
+
+***
+
+[![Flattr this](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=jkingsman&url=https%3A%2F%2Fgithub.com%2Fjkingsman%2Fget-git) 
