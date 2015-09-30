@@ -1,3 +1,5 @@
+# This project is deprecated and no longer maintained. Please use [Bishop](https://github.com/jkingsman/get-git), the successor to Get Git which contains all Get Git's functionality and more.
+
 Get Git
 =============
 
