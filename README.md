@@ -1,4 +1,4 @@
-# This project is deprecated and no longer maintained. Please use [Bishop](https://github.com/jkingsman/Bishop), the successor to Get Git w()hich contains all Get Git's functionality and more).
+# This project is deprecated and no longer maintained. Please use [Bishop](https://github.com/jkingsman/Bishop), the successor to Get Git (which contains all Get Git's functionality and more).
 
 Get Git
 =============
